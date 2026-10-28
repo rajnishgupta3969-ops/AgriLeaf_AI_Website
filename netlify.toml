@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/AgriLeaf_AI"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/AgriLeaf_AI/*"
+  to = "/:splat"
+  status = 301
