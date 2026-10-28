@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriLeaf AI | Smart Farming</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#"><span class="brand-icon">🌱</span><span>AgriLeaf <b>AI</b><small>SMART FARMING</small></span></a>
+  <nav><a href="#scanner">Leaf Scanner</a><a href="#tools">Farm Tools</a><a href="#market">Mandi Prices</a><a href="#schemes">Schemes</a></nav>
+  <select id="language" aria-label="Language"><option value="en">English</option><option value="hi">हिन्दी</option></select>
+</header>
+<main>
+<section class="hero">
+  <div class="hero-copy"><span class="eyebrow">🌾 SMARTER FARMING STARTS HERE</span>
+    <h1>Healthy crops.<br><em>Better harvests.</em></h1>
+    <p>Scan a leaf, understand possible plant problems, and get practical crop-care guidance in one simple place.</p>
+    <div class="hero-actions"><a class="btn primary" href="#scanner">📷 Scan a Leaf</a><a class="btn secondary" href="#tools">Explore farm tools →</a></div>
+    <div class="trust-row"><span>✓ Easy to use</span><span>✓ Farmer-friendly</span><span>✓ Report export</span></div>
+  </div>
+  <div class="hero-art"><div class="sun"></div><div class="leaf-emoji">🌿</div><div class="floating-card"><span class="dot"></span><div><b>Crop health check</b><small>Upload a clear leaf photo to begin</small></div></div></div>
+</section>
+<section class="stats">
+  <div><span>🌿</span><b>Leaf Health</b><small>Photo-based screening</small></div>
+  <div><span>📋</span><b>Scan Reports</b><small>Keep a record of checks</small></div>
+  <div><span>🌦️</span><b>Weather Planning</b><small>Plan around local conditions</small></div>
+  <div><span>🧑‍🌾</span><b>Farm Toolkit</b><small>Guides for everyday decisions</small></div>
+</section>
+<section id="scanner" class="section scanner-section">
+  <div class="section-heading"><span class="eyebrow">AI-ASSISTED DIAGNOSTICS</span><h2>What is happening to your plant?</h2><p>Upload or take a picture of the affected leaf — the image is analysed in your browser and a screening report is generated.</p></div>
+  <div class="scanner-grid">
+    <div class="upload-panel">
+      <div class="upload-drop" id="dropZone"><div class="upload-icon">📸</div><h3>Upload a leaf photo</h3><p>Choose a JPG, PNG or WEBP image. Clear, well-lit photos work best.</p>
+      <input type="file" id="leafInput" accept="image/*" capture="environment" hidden>
+      <button class="btn primary" id="chooseBtn">Choose / Take Photo</button>
+      <div class="preview-wrap" id="previewWrap" hidden><img id="preview" alt="Uploaded leaf preview"><button id="removeBtn" class="text-btn">Remove photo</button></div>
+      </div>
+      <label class="field-label" for="crop">Crop (optional)</label><select id="crop" class="full-input"><option value="Unknown">Not sure / identify from photo</option><option>Tomato</option><option>Potato</option><option>Wheat</option><option>Rice</option><option>Maize</option><option>Cotton</option><option>Chilli</option><option>Mango</option><option>Apple</option><option>Soybean</option><option>Other</option></select>
+      <label class="field-label" for="location">Village / district (optional)</label><input id="location" class="full-input" placeholder="e.g. Greater Noida, Uttar Pradesh">
+      <button id="analyzeBtn" class="btn primary full-btn" disabled>🔎 Analyze Leaf</button>
+      <small class="muted">Your photo is analysed locally in your browser — it is never uploaded anywhere.</small>
+      <div class="weather-block" id="weatherBlock">
+        <h4>🌦️ Weather & Irrigation</h4>
+        <label class="field-label" for="weatherLocation">Village / district</label>
+        <input id="weatherLocation" class="full-input" placeholder="e.g. Ludhiana">
+        <button id="weatherBtn" class="btn secondary full-btn">Get 3-day forecast</button>
+        <button id="weatherUseScanLocation" class="text-btn">Use location from scan ↓</button>
+        <div id="weatherPanel" class="weather-panel" hidden><div id="weatherBody"></div></div>
+      </div>
+    </div>
+    <div class="report-panel" id="reportPanel">
+      <div class="report-top"><div><span class="eyebrow">YOUR SCAN REPORT</span><h3 id="reportTitle">Ready when you are</h3></div><span class="report-status" id="reportStatus">Waiting</span></div>
+      <div id="emptyReport" class="empty-report"><div>🧪</div><h3>Your plant report will appear here</h3><p>Upload a leaf image and select Analyze Leaf to generate a colour-based screening report.</p></div>
+      <div id="reportContent" hidden>
+        <div class="diagnosis"><div><small>Possible issue</small><h2 id="diseaseName">—</h2><p id="diseaseDescription"></p></div><div class="confidence"><b id="confidenceValue">—</b><small>Screening score</small></div></div>
+        <div class="report-meta">
+          <div><small>Leaf affected</small><b id="affectedValue">—</b></div>
+          <div><small>Healthy green area</small><b id="greenValue">—</b></div>
+          <div><small>Dark/lesion area</small><b id="lesionValue">—</b></div>
+        </div>
+        <div class="report-meta"><div><small>Crop</small><b id="reportCrop">Unknown</b></div><div><small>Location</small><b id="reportLocation">Not provided</b></div><div><small>Scan date</small><b id="reportDate">—</b></div></div>
+        <p class="crop-hint" id="cropHint"></p>
+        <h4>Recommended next steps</h4><ol id="stepsList"></ol>
+        <div class="warning"><b>⚠ Important</b><p>This is a colour-based screening generated in your browser, not a laboratory diagnosis. Confirm symptoms with a local agriculture officer or qualified agronomist before applying any pesticide.</p></div>
+        <div class="report-actions"><button id="downloadBtn" class="btn secondary">⬇ Download report</button><button id="newScanBtn" class="btn light">New scan</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="tools" class="section pale"><div class="section-heading"><span class="eyebrow">ONE FARM, MANY TOOLS</span><h2>Your farming companion</h2><p>Helpful modules inspired by modern farm platforms.</p></div>
+<div class="feature-grid">
+  <article class="feature-card"><span>🚜</span><h3>My Farms & Plots</h3><p>Keep crop, plot size, sowing date and field notes organized.</p><button class="link-btn" data-feature="My Farms">Open tool →</button></article>
+  <article class="feature-card"><span>🌤️</span><h3>Weather & Irrigation</h3><p>Plan watering and field work using your local forecast.</p><button class="link-btn" data-feature="Weather & Irrigation">Open tool →</button></article>
+  <article class="feature-card"><span>🧪</span><h3>Nutrient Guide</h3><p>Learn about common nutrient deficiency signs and soil testing.</p><button class="link-btn" data-feature="Nutrient Guide">Open tool →</button></article>
+  <article class="feature-card"><span>📈</span><h3>Yield Planning</h3><p>Record crop progress and estimate harvest using your own data.</p><button class="link-btn" data-feature="Yield Planning">Open tool →</button></article>
+  <article class="feature-card"><span>🐛</span><h3>Pest & Disease Library</h3><p>Browse common crop problems and prevention practices.</p><button class="link-btn" data-feature="Pest & Disease Library">Open tool →</button></article>
+  <article class="feature-card"><span>🤖</span><h3>Ask Agri Assistant</h3><p>Get help preparing questions for an agriculture expert.</p><button class="link-btn" data-feature="Agri Assistant">Open tool →</button></article>
+</div>
+<div class="nutrient-panel" id="nutrientPanel">
+  <h4>🧪 Nutrient Guide</h4>
+  <label class="field-label" for="nutrientSelect">Select a nutrient</label>
+  <select id="nutrientSelect" class="full-input">
+    <option value="">— Choose a nutrient —</option>
+    <option>Nitrogen</option><option>Phosphorus</option><option>Potassium</option>
+    <option>Calcium</option><option>Magnesium</option><option>Iron</option><option>Zinc</option>
+  </select>
+  <div id="nutrientDetail" class="nutrient-detail" hidden></div>
+</div>
+<div id="toolMessage" class="tool-message" hidden></div></section>
+<section id="market" class="section"><div class="section-heading"><span class="eyebrow">MARKET AWARENESS</span><h2>Mandi price dashboard</h2><p>Sample interface only. These example values are not live market prices.</p></div>
+<div class="market-table"><div class="market-head"><span>Commodity</span><span>Example price</span><span>Trend</span></div>
+<div class="market-row"><span>🌾 Wheat</span><b>₹2,275 / quintal</b><span class="up">+3.2%</span></div><div class="market-row"><span>🌽 Maize</span><b>₹2,090 / quintal</b><span class="down">−1.5%</span></div><div class="market-row"><span>🍚 Rice</span><b>₹3,850 / quintal</b><span class="up">+2.1%</span></div><div class="market-row"><span>🧅 Onion</span><b>₹1,850 / quintal</b><span class="down">−4.2%</span></div></div>
+</section>
+<section id="schemes" class="section pale"><div class="section-heading"><span class="eyebrow">FARMER SUPPORT</span><h2>Government schemes & learning</h2><p>Use official portals to verify current eligibility, benefits and application dates.</p></div>
+<div class="scheme-grid"><a class="scheme-card" href="https://pmkisan.gov.in/" target="_blank" rel="noopener"><b>PM-KISAN</b><span>Income support information</span><strong>Visit official portal ↗</strong></a><a class="scheme-card" href="https://pmfby.gov.in/" target="_blank" rel="noopener"><b>PM Fasal Bima Yojana</b><span>Crop insurance information</span><strong>Visit official portal ↗</strong></a><a class="scheme-card" href="https://soilhealth.dac.gov.in/" target="_blank" rel="noopener"><b>Soil Health Card</b><span>Soil testing and nutrient guidance</span><strong>Visit official portal ↗</strong></a><a class="scheme-card" href="https://enam.gov.in/" target="_blank" rel="noopener"><b>e-NAM</b><span>National agriculture market</span><strong>Visit official portal ↗</strong></a></div>
+</section>
+<section class="cta"><div><span class="eyebrow">GROW WITH CONFIDENCE</span><h2>Small checks can help protect a harvest.</h2><p>Start with a clear photo, record what you see, and confirm important decisions with trusted experts.</p></div><a class="btn white" href="#scanner">Start a leaf scan ↑</a></section>
+</main>
+<footer><a class="brand" href="#"><span>🌱</span><span>AgriLeaf <b>AI</b></span></a><p>Student project prototype · Not a substitute for professional agronomic diagnosis.</p><span>© 2026 AgriLeaf AI</span></footer>
+<div id="toast" role="status" class="toast" hidden></div>
+<script src="app.js"></script>
+</body></html>
