@@ -1,5 +1,5 @@
 [build]
-  publish = "AgriLeaf_AI"
+  publish = "."
 
 [[redirects]]
   from = "/AgriLeaf_AI"
